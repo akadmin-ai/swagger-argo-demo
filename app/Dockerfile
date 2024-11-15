@@ -10,7 +10,7 @@ COPY app/CurrentTimeService/*.csproj ./CurrentTimeService/
 RUN dotnet restore "./CurrentTimeService/CurrentTimeService.csproj"
 
 # Copy the rest of the application files
-COPY app/. ./
+COPY ./app/ ./
 
 # Build the application
 WORKDIR /src
