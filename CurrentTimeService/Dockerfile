@@ -1,34 +1,33 @@
 # Use the .NET SDK image for building the application
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 
-# Set the working directory
+# Set the working directory for the build process
 WORKDIR /src
 
-# Copy solution and project files
-COPY CurrentTimeService.sln ./
-COPY CurrentTimeService/*.csproj ./CurrentTimeService/
+# Copy the solution file
+COPY ./CurrentTimeService/CurrentTimeService.csproj ./CurrentTimeService/
 
 # Restore dependencies
 RUN dotnet restore ./CurrentTimeService/CurrentTimeService.csproj
 
-# Copy the rest of the application files
+# Copy the entire CurrentTimeService directory
 COPY ./CurrentTimeService/ ./CurrentTimeService/
 
 # Build the application
 WORKDIR /src/CurrentTimeService
 RUN dotnet publish -c Release -o /app
 
-# Use the runtime image for running the application
+# Use the ASP.NET runtime image for the final stage
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
 
 # Set the working directory
 WORKDIR /app
 
-# Copy the built files from the build stage
+# Copy the published output from the build stage
 COPY --from=build /app ./
 
 # Expose port 80
 EXPOSE 80
 
-# Set the entry point
+# Set the entry point for the container
 ENTRYPOINT ["dotnet", "CurrentTimeService.dll"]
