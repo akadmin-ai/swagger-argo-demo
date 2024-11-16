@@ -9,7 +9,7 @@ spec:
   - host: demo.com
     http:
       paths:
-      - path: /
+      - path: /swagger
         pathType: Prefix
         backend:
           service:
