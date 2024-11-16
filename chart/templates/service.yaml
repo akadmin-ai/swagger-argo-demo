@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: "{{ .Values.appname }}"
 spec:
-  type: LoadBalancer 
   selector:
     app: "{{ .Values.appname }}"
+  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 8080
-      targetPort: 8080
+      targetPort: 8080 # Match the port where your Go application is running

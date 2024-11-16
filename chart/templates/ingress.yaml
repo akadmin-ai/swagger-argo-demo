@@ -2,17 +2,23 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: "{{ .Values.appname }}"
-  annotations:
-    kubernetes.io/ingress.class: nginx
 spec:
+  ingressClassName: nginx
   rules:
-  - host: demo.com
-    http:
-      paths:
-      - path: /swagger
-        pathType: Prefix
-        backend:
-          service:
-            name: "{{ .Values.appname }}"
-            port:
-              number: 8080
+    - host: gitops-demo.com
+      http:
+        paths:
+          - path: /swagger
+            pathType: Prefix
+            backend:
+              service:
+                name: "{{ .Values.appname }}"
+                port:
+                  number: 8080
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: "{{ .Values.appname }}"
+                port:
+                  number: 8080
