@@ -1,5 +1,5 @@
 image:
   repository: akadirvel1/currenttimeservice
-  tag: c91442ab517ffc790cae3fe65d390250d521421b
+  tag: ec809124b68ffaca7742ebcbdbcbd7c4487db97c
 appname: dev-server
 replicas: 2
