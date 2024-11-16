@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: currenttimeservice
+  name: current-time-service
   labels:
-    app: currenttimeservice
+    app: current-time-service
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: currenttimeservice
+      app: current-time-service
   template:
     metadata:
       labels:
-        app: currenttimeservice
+        app: current-time-service
     spec:
       containers:
-      - name: currenttimeservice
+      - name: current-time-service
         image: akadirvel1/currenttimeservice:latest
         ports:
         - containerPort: 80
         env:
         - name: ASPNETCORE_ENVIRONMENT
-          value: "Production"
+          value: Production

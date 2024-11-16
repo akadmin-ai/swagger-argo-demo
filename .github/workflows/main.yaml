@@ -20,7 +20,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build and Push Docker Image
-      working-directory: ./app
+      working-directory: ./CurrentTimeService
       run: |
         docker build -t akadirvel1/currenttimeservice:${{ github.sha }} .
         docker push akadirvel1/currenttimeservice:${{ github.sha }}
