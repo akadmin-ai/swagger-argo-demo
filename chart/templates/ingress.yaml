@@ -13,6 +13,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: current-time-service
+            name: "{{ .Values.appname }}"
             port:
               number: 8080
