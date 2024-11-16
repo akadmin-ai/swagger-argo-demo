@@ -25,20 +25,27 @@ jobs:
         docker build -t akadirvel1/currenttimeservice:${{ github.sha }} .
         docker push akadirvel1/currenttimeservice:${{ github.sha }}
 
-  deploy:
+   update:
+    name: Update Helm Manifests
     runs-on: ubuntu-latest
-    needs: build-and-push
+    needs: build
 
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
+    - name: Check out code
+      uses: actions/checkout@v2
 
-    - name: Configure kubectl
+    - name: Update Image Tag Values
       run: |
-        echo "${{ secrets.KUBECONFIG }}" > kubeconfig
-        export KUBECONFIG=$(pwd)/kubeconfig
+        chart_dir="chart"
+        new_image_tag=${{ github.sha }}
 
-    - name: Update Deployment
-      run: |
-        kubectl set image deployment/currenttimeservice currenttimeservice=akadirvel1/currenttimeservice:${{ github.sha }}
-        kubectl rollout status deployment/currenttimeservice
+        # Update the values.yaml file with the new image tag
+        sed -i "s/^  tag: .*/  tag: $new_image_tag/" "$chart_dir/values.yaml"
+    
+    - name: Commit the changes made
+      run: | 
+        git config --global user.name 'Kadirvel'
+        git config --global user.email 'a.kadirvel@gmail.com'
+        git pull
+        git commit -am "updating image tag"
+        git push
