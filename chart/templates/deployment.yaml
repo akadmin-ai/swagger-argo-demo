@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: current-time-service
+  name: "{{ .Values.appname }}"
   labels:
-    app: current-time-service
+    app: "{{ .Values.appname }}"
 spec:
   replicas: 2
   selector:
@@ -15,10 +15,10 @@ spec:
         app: "{{ .Values.appname }}"
     spec:
       containers:
-      - name: "{{ .Values.appname }}"
+        - name: "{{ .Values.appname }}"
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}" 
-        ports:
-        - containerPort: 8080
-        env:
-        - name: ASPNETCORE_ENVIRONMENT
-          value: Production
+          ports:
+            - containerPort: 8080
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Production
