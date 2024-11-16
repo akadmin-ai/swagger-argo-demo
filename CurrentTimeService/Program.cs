@@ -7,7 +7,10 @@ var app = builder.Build();
 
 // Enable Swagger
 app.UseSwagger();
-app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CurrentTimeService API"));
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "CurrentTimeService API");
+});
 
 // Serve a simple website
 app.MapGet("/home", async context =>

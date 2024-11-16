@@ -1,9 +1,10 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: "{{ .Values.appname }}"
+  name: dev-server
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  ingressClassName: nginx
   rules:
     - host: gitops-demo.com
       http:
@@ -12,13 +13,13 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: "{{ .Values.appname }}"
+                name: dev-server
                 port:
-                  number: 8080
+                  number: 80
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: "{{ .Values.appname }}"
+                name: dev-server
                 port:
-                  number: 8080
+                  number: 80
