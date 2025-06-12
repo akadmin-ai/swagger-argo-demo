@@ -38,4 +38,4 @@ spec:
   ports:
     - protocol: TCP
       port: 80          # Exposes port 80 externally
-      targetPort: 8090   # The container is listening on port 8080
+      targetPort: 8095   # The container is listening on port 8080
